@@ -1,0 +1,44 @@
+---
+title: "What We Deliberately Exclude"
+description: "Features intentionally left out of V1 — and why scope discipline is critical for launch velocity."
+---
+
+import { Badge } from '@astrojs/starlight/components';
+
+## The Exclusion List
+
+Saying "no" to features is harder than saying "yes." Every exclusion below was a deliberate choice to maximize launch speed and product quality.
+
+| Excluded Feature | Why It's Excluded | When It's Added |
+|-----------------|-------------------|-----------------|
+| **CRM / deal management** | HubSpot free CRM or a spreadsheet is fine for <$2M ARR. Adding CRM triples surface area and delays launch by months. | <Badge text="V2" variant="note" /> |
+| **LinkedIn outreach automation** | LinkedIn aggressively bans automation. Legal and account risk too high for V1. | <Badge text="V2" variant="caution" /> (manual-assist model) |
+| **Content marketing / SEO tools** | Different motion entirely. Founders who need pipeline NOW need outbound, not a 6-month content play. | Not planned |
+| **Phone / cold calling** | Technical founders don't cold call. Their prospects don't answer unknown numbers. | Not planned |
+| **Multi-channel orchestration** | V1 is email-only. Doing one channel excellently beats doing three channels poorly. | <Badge text="V3" variant="note" /> |
+| **Team collaboration features** | Target customer is solo founder or 2-3 person team. No need for roles, approvals, or team analytics. | <Badge text="V3" variant="note" /> |
+| **Custom integrations / API** | Build integrations when customers demand them, not before. V1 has Gmail, Outlook, and Google Calendar. That's it. | <Badge text="V3" variant="note" /> |
+
+## The Discipline Principle
+
+:::caution[The #1 startup killer]
+Most startups die from building too much, not too little. Every feature added to V1 is:
+- 1-2 weeks of development time
+- Ongoing maintenance burden
+- More surface area for bugs
+- Slower iteration on what matters
+
+V1 must nail **one thing**: booking meetings from cold outbound. Everything else is a distraction.
+:::
+
+## Why Email Only in V1
+
+The decision to focus exclusively on email is deliberate:
+
+1. **Email is the most controllable channel** — we manage sending domains, deliverability, and timing
+2. **Email has the best measurability** — open rates, reply rates, and meeting conversion are trackable
+3. **Email doesn't risk account bans** — unlike LinkedIn automation
+4. **Email scales linearly** — more prospects = more emails = more meetings, predictably
+5. **Email data compounds** — subject lines, messaging patterns, and timing data all improve the AI
+
+Multi-channel comes in V2/V3 after email-based outbound is demonstrably working.

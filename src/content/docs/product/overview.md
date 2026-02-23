@@ -1,0 +1,59 @@
+---
+title: "Product Overview"
+description: "Spear — AI outbound agent that generates qualified pipeline for B2B SaaS founders, measured on meetings booked, not emails sent."
+---
+
+import { Card, CardGrid, Badge } from '@astrojs/starlight/components';
+
+## One-Line Positioning
+
+> **AI outbound agent that generates qualified pipeline for B2B SaaS founders — measured on meetings booked, not emails sent.**
+
+## What Spear Does
+
+Spear is an AI agent that handles the entire outbound motion for technical B2B SaaS founders. It replaces the need for:
+
+- A junior SDR ($55-75K/year)
+- A DIY tool stack ($500-1,000/mo + 15-20 hours/week)
+- Sales expertise the founder doesn't have
+
+## The Five Core Capabilities
+
+<CardGrid>
+  <Card title="ICP Definition Wizard" icon="magnifier">
+    AI analyzes your product and existing customers to build a structured ICP profile. Most founders can't articulate their ICP — this removes the #1 blocker. <Badge text="V1" variant="tip" />
+  </Card>
+
+  <Card title="Prospect Discovery Engine" icon="star">
+    50-200 qualified prospects per week, scored and ranked. Sources: LinkedIn, Apollo, GitHub, Product Hunt, job postings. <Badge text="V1" variant="tip" />
+  </Card>
+
+  <Card title="Hyper-Personalized Sequences" icon="document">
+    3-email sequences per prospect with deep personalization that matches your writing voice. Learns from cross-customer data. <Badge text="V1" variant="tip" />
+  </Card>
+
+  <Card title="Autonomous Send + Reply" icon="rocket">
+    Manages sending, classifies replies, drafts responses, and handles objections. Trust ladder from full approval to fully autonomous. <Badge text="V1" variant="tip" />
+  </Card>
+
+  <Card title="Pipeline Dashboard + Intelligence" icon="information">
+    Visual funnel, conversion metrics, weekly briefings, and A/B test reporting. Closes the feedback loop. <Badge text="V1" variant="tip" />
+  </Card>
+</CardGrid>
+
+See detailed breakdowns in [Core Features](/spear-gtm/product/core-features/) and the [Magic Moment](/spear-gtm/product/magic-moment/).
+
+## Positioning Against Alternatives
+
+| Dimension | Spear | Junior SDR | Clay + Instantly |
+|-----------|-------|-----------|-----------------|
+| **Monthly cost** | $199-799 | $5,500-7,000 | $500-1,000 + time |
+| **Setup time** | 30 minutes | 3-month ramp | Hours of configuration |
+| **Founder time/week** | <1 hour | 5+ hours managing | 15-20 hours executing |
+| **Sales expertise needed** | None | Need to manage SDR | Significant |
+| **Meetings/month** | 5-12 | 8-15 (after ramp) | Variable |
+| **Cost per meeting** | ~$82 | ~$600 | Depends on skill |
+
+:::tip[The feeling we're building for]
+"I have an SDR working for me around the clock and it costs less than my Spotify + Netflix combined."
+:::

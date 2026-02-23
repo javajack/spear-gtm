@@ -1,0 +1,75 @@
+---
+title: "Risk Mitigations"
+description: "Detailed mitigation strategies and kill criteria for all 5 major risks."
+---
+
+import { Badge, Card, CardGrid } from '@astrojs/starlight/components';
+
+## Risk #1: Email Deliverability Collapse <Badge text="High Likelihood" variant="danger" /> <Badge text="Critical Impact" variant="danger" />
+
+**The risk:** Google/Microsoft tighten anti-spam enforcement. If bulk cold email deliverability drops below 50% inbox placement, the core value prop is undermined.
+
+**Mitigations:**
+- **Quality over quantity** from day 1: 100-500 emails/mo per customer vs. 5,000-10,000 from spray-and-pray tools
+- **Strict deliverability infrastructure**: dedicated sending domains per customer, proper SPF/DKIM/DMARC, warm-up protocols, reputation monitoring
+- **Accelerate V2 multi-channel** (LinkedIn warm engagement, retargeting ads) to reduce email dependency
+- **Position as "smart outbound"** — the AI's value is targeting and personalization, which IMPROVES deliverability
+
+:::danger[Kill criteria]
+If average inbox placement drops below 40% for 2+ consecutive months despite optimization.
+:::
+
+## Risk #2: AI Quality Inconsistency <Badge text="Medium-High Likelihood" variant="caution" /> <Badge text="High Impact" variant="danger" />
+
+**The risk:** LLMs have variable output quality. One bad email damages the founder's brand and trust in the product.
+
+**Mitigations:**
+- **Trust ladder onboarding**: First 2 weeks, every email requires approval. Weeks 3-4, only first emails. Month 2+, fully autonomous with notification.
+- **Factual verification layer**: Before including company-specific claims, verify against source data. If unsure, use generic personalization.
+- **AI voice detection**: Run generated emails through a separate model to detect AI patterns. Reject and regenerate if detected.
+- **Human review queue**: Model reports confidence score; below threshold triggers founder review.
+
+:::danger[Kill criteria]
+If customer NPS drops below 20 due to email quality complaints.
+:::
+
+## Risk #3: VC-Funded Competitor Enters Niche <Badge text="Medium Likelihood" variant="caution" /> <Badge text="Medium-High Impact" variant="caution" />
+
+**The risk:** 11x.ai or Artisan AI launches a "Starter" tier at $99/mo targeting the same segment.
+
+**Mitigations:**
+- **Move fast**: 12-month head start means 12 months of compounding intelligence they can't replicate
+- **Community lock-in**: Private Slack/Discord + content following creates switching costs beyond the product
+- **Outcome-based pricing advantage**: Spear's hybrid pricing ensures profitability regardless of competition
+- **Go deeper, not wider**: While they spread across segments, Spear goes deeper into the SaaS founder niche
+
+:::danger[Kill criteria]
+If a competitor with >$10M funding launches an identical product at a lower price AND achieves comparable performance within 6 months.
+:::
+
+## Risk #4: Target Segment Too Small <Badge text="Medium Likelihood" variant="caution" /> <Badge text="High Impact" variant="danger" />
+
+**The risk:** Only 1% of the estimated 50,000-100,000 B2B SaaS companies pay $400/mo = $24M TAM — viable but tight.
+
+**Mitigations:**
+- **Validate pricing before building**: Landing page with pricing, drive traffic, measure intent (email signups)
+- **Keep expansion path open**: Product designed to grow into agencies, larger SaaS, non-tech B2B
+- **Outcome-based pricing reduces WTP objections**: "$25 per meeting booked" is an easy ROI calculation
+
+:::danger[Kill criteria]
+If after 3 months of active sales/marketing, fewer than 20 paying customers despite 500+ qualified leads.
+:::
+
+## Risk #5: Regulatory / Legal Risk <Badge text="Low-Medium Likelihood" variant="note" /> <Badge text="Medium Impact" variant="caution" />
+
+**The risk:** EU tightens GDPR enforcement on B2B cold email. US passes new anti-spam legislation.
+
+**Mitigations:**
+- **Compliance-by-default**: CAN-SPAM compliance (physical address, unsubscribe link) built into every email. GDPR legitimate interest basis documented.
+- **Legally sourced data only**: Apollo.io and data providers handle data collection liability
+- **Geography-aware sending**: Different compliance requirements per region, automatically enforced
+- **Legal budget**: $5K set aside for legal review before EU launch
+
+:::danger[Kill criteria]
+If a new regulation effectively bans cold B2B email outreach (highly unlikely but worth monitoring).
+:::

@@ -1,0 +1,78 @@
+---
+title: "Pricing"
+description: "Spear's hybrid pricing model: flat base + outcome-based bonus, with three tiers designed for different founder stages."
+---
+
+import { Card, CardGrid, Badge, Tabs, TabItem } from '@astrojs/starlight/components';
+
+## Pricing Model: Hybrid
+
+**Flat base + outcome-based bonus.** Why hybrid? Pure usage-based (per email) incentivizes sending more, not better. Pure outcome-based (per meeting) creates unpredictable revenue. Hybrid aligns incentives: flat base covers infrastructure; outcome bonus rewards actual results.
+
+## Three Tiers
+
+<Tabs>
+  <TabItem label="Starter — $199/mo" icon="rocket">
+    **Target:** Pre-revenue or <$500K ARR founders testing outbound
+
+    | Feature | Included |
+    |---------|---------|
+    | Prospects researched + contacted | 100/month |
+    | Email sequences | 3-email per prospect |
+    | Dashboard | Basic pipeline view |
+    | Support | Email |
+    | Meeting bonus | +$25/meeting booked |
+    | Bonus cap | $398/mo (2x base) |
+  </TabItem>
+
+  <TabItem label="Growth — $399/mo" icon="star">
+    **Target:** $500K-$2M ARR founders scaling pipeline
+
+    | Feature | Included |
+    |---------|---------|
+    | Prospects researched + contacted | 500/month |
+    | Email sequences | Advanced personalization (custom research depth) |
+    | Reply management | Full autonomous classification + responses |
+    | Weekly intelligence briefing | Included |
+    | A/B testing | Automatic |
+    | Support | Priority |
+    | Meeting bonus | +$25/meeting booked |
+    | Bonus cap | $798/mo (2x base) |
+  </TabItem>
+
+  <TabItem label="Scale — $799/mo" icon="approve-check">
+    **Target:** $1-5M ARR companies with dedicated GTM person
+
+    | Feature | Included |
+    |---------|---------|
+    | Prospects researched + contacted | 1,500/month |
+    | Multi-ICP campaigns | Supported |
+    | Custom AI training | On your specific product/market |
+    | Dedicated Slack channel | Included |
+    | Quarterly strategy review | Included |
+    | Meeting bonus | +$25/meeting booked |
+    | Bonus cap | $1,598/mo (2x base) |
+  </TabItem>
+</Tabs>
+
+## Anchoring Against Alternatives
+
+| Alternative | Monthly Cost | Outcome |
+|-------------|-------------|---------|
+| Junior SDR (salary + tools) | $5,500-7,000/mo | 8-15 meetings/mo after 3-month ramp |
+| Clay + Instantly + Apollo stack | $500-1,000/mo + 15-20 hrs/week founder time | Variable |
+| Freelance SDR (Upwork) | $2,000-4,000/mo | Quality varies wildly |
+| **Spear Growth** | **$399/mo + ~$125-250 meeting bonuses** | **5-12 meetings/mo, fully autonomous** |
+
+:::tip[The math]
+Spear Growth at $399/mo + ~$175 in meeting bonuses = ~$575/mo total for 7 meetings. That's **$82/meeting**. A junior SDR at $6K/mo booking 10 meetings costs **$600/meeting**. Spear is **7x cheaper per meeting.**
+:::
+
+## Why the Outcome Bonus Works
+
+The +$25/meeting bonus (capped at 2x base) creates several positive dynamics:
+
+1. **Aligns incentives** — the system is optimized for meetings, not email volume
+2. **Provides ROI proof** — customers can calculate exact cost per meeting
+3. **Creates expansion revenue** — as the AI improves, more meetings = more revenue without adding customers
+4. **Low risk for customers** — bonus only triggers when real value is delivered
