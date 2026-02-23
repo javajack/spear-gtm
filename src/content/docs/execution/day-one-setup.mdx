@@ -5,23 +5,23 @@ description: "Every tool and service needed on day one, with costs, purposes, an
 
 import { Badge } from '@astrojs/starlight/components';
 
+Building Spear costs about $170/month in tools and infrastructure. Here's every service, what it does, and when to set it up. No surprises, no hidden costs — just the full stack laid out.
+
 ## Infrastructure Table
 
 | Tool | Purpose | Monthly Cost | Setup Priority |
 |------|---------|:----------:|:--------------:|
 | **GitHub** (private repo) | Version control | Free | <Badge text="Day 1" variant="tip" /> |
-| **Vercel** | Frontend hosting + serverless | $20 | <Badge text="Day 1" variant="tip" /> |
-| **Supabase** | Database, auth, edge functions | $25 | <Badge text="Day 1" variant="tip" /> |
+| **AWS Account** | ECS Fargate (Go backend + NATS), RDS PostgreSQL, Secrets Manager | ~$50-80 | <Badge text="Day 1" variant="tip" /> |
+| **Cloudflare** | DNS, domain management, CDN for frontend | Free | <Badge text="Day 1" variant="tip" /> |
 | **Resend** | Transactional + outbound email | $20 | <Badge text="Week 2" variant="note" /> |
 | **Anthropic API** (Claude) | AI backbone | ~$50 initially | <Badge text="Week 2" variant="note" /> |
 | **Apollo.io API** | Prospect data | ~$50 initially | <Badge text="Week 3" variant="note" /> |
-| **Inngest** | Job queue and scheduling | Free tier | <Badge text="Week 3" variant="note" /> |
-| **Cloudflare** | DNS, domain management | Free | <Badge text="Day 1" variant="tip" /> |
 | **Sentry** | Error monitoring | Free tier | <Badge text="Week 1" variant="tip" /> |
 | **PostHog** | Product analytics | Free tier | <Badge text="Week 1" variant="tip" /> |
 | **Linear** | Issue tracking | Free | <Badge text="Day 1" variant="tip" /> |
 | **Figma** | Quick UI mockups | Free tier | <Badge text="Day 1" variant="tip" /> |
-| **Total** | | **~$165/mo** | |
+| **Total** | | **~$170/mo** | |
 
 ## Setup Order
 
@@ -29,25 +29,27 @@ import { Badge } from '@astrojs/starlight/components';
 graph TD
     subgraph Day1["Day 1: Foundation"]
         GH[GitHub repo] --> CF[Cloudflare DNS]
-        CF --> Vercel[Vercel project]
-        Vercel --> Supa[Supabase project]
+        CF --> AWS[AWS Account<br/>ECS + RDS + Secrets Manager]
+        AWS --> FE[Frontend deploy<br/>Amplify or S3 + CloudFront]
         Linear[Linear board]
         Figma[Figma workspace]
     end
 
-    subgraph Week1["Week 1: Monitoring"]
+    subgraph Week1["Week 1: Backend + Monitoring"]
+        GO[Go API on Fargate<br/>+ NATS JetStream sidecar]
+        RDS[RDS PostgreSQL<br/>Multi-tenant schema setup]
         Sentry[Sentry integration]
         PH[PostHog analytics]
     end
 
     subgraph Week2["Week 2: Core Services"]
         Resend[Resend email]
-        Claude[Anthropic API key]
+        Claude[Anthropic API key<br/>→ AWS Secrets Manager]
     end
 
-    subgraph Week3["Week 3: Data + Queue"]
+    subgraph Week3["Week 3: Data + Polish"]
         Apollo[Apollo.io API]
-        Inngest[Inngest workflows]
+        Queue[NATS streams configured<br/>PROSPECTS, EMAILS, REPLIES]
     end
 
     Day1 --> Week1
@@ -64,11 +66,11 @@ graph TD
 
 | Phase | Monthly Cost | What's Active |
 |-------|:-----------:|---------------|
-| **Day 1** | ~$45 | GitHub, Vercel, Supabase, Cloudflare, free tiers |
-| **Week 2** | ~$115 | + Resend, Anthropic API |
-| **Week 3** | ~$165 | + Apollo, Inngest |
-| **At 10 customers** | ~$220 | Increased AI/data usage |
-| **At 100 customers** | ~$3,500 | Volume scaling |
+| **Day 1** | ~$50 | GitHub, AWS (Fargate + RDS micro), Cloudflare, free tiers |
+| **Week 2** | ~$120 | + Resend, Anthropic API |
+| **Week 3** | ~$170 | + Apollo, NATS streams configured |
+| **At 10 customers** | ~$250 | Increased AI/data usage |
+| **At 100 customers** | ~$3,500 | RDS scales up, more Fargate tasks |
 
 :::tip[Total capital needed]
 $30-40K covers everything through profitability (Month 5). This includes infrastructure costs, domain purchases, legal review budget, and the founder's living expenses. No external funding required.

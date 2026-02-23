@@ -3,21 +3,30 @@ title: "System Design"
 description: "Full system architecture diagram showing how frontend, backend, AI layer, data providers, and email infrastructure connect."
 ---
 
+Here's how all the pieces fit together — the blueprint for how Spear works under the hood. From the dashboard you interact with, through the Go backend and NATS job queue, down to the email infrastructure that delivers your outreach.
+
 ## Architecture Overview
 
 ```mermaid
 graph TB
-    subgraph Frontend["Frontend — Next.js 14 on Vercel ($20/mo)"]
+    subgraph Frontend["Frontend — Next.js 14 on AWS Amplify"]
         UI[Dashboard UI<br/>Tailwind + shadcn/ui]
         Auth[Auth Flow<br/>Google OAuth]
         Review[Email Review<br/>One-click approve]
     end
 
-    subgraph Backend["Backend — Supabase ($25/mo)"]
-        API[Next.js API Routes]
-        DB[(Postgres<br/>Users, campaigns,<br/>prospects, emails)]
-        AuthSvc[Supabase Auth]
-        Realtime[Realtime<br/>Dashboard updates]
+    subgraph Backend["Backend — Go on ECS Fargate"]
+        API[Go API Server<br/>chi/echo router]
+        TenantMW[Tenant Middleware<br/>JWT → tenant scope]
+        DB[(RDS PostgreSQL<br/>Schema-per-tenant<br/>+ Row-Level Security)]
+        AuthSvc[JWT Auth Layer<br/>Google OAuth tokens]
+    end
+
+    subgraph Queue["Job Queue — NATS JetStream (Fargate sidecar)"]
+        Research[Prospect Research<br/>Durable consumer]
+        Generate[Email Generation<br/>Durable consumer]
+        Send[Send Scheduling<br/>Durable consumer]
+        Reply[Reply Processing<br/>Durable consumer]
     end
 
     subgraph AI["AI Layer — Claude Sonnet 4.6"]
@@ -35,25 +44,17 @@ graph TB
     end
 
     subgraph Email["Email Infrastructure"]
-        Resend[Resend<br/>Sending ($20/mo)]
+        Resend[Resend / Amazon SES<br/>Sending]
         Gmail[Gmail OAuth<br/>Reply reading]
         Outlook[Outlook OAuth<br/>Reply reading]
         Domain[Cloudflare<br/>SPF/DKIM/DMARC]
     end
 
-    subgraph Queue["Job Queue — Inngest ($25/mo)"]
-        Research[Prospect Research<br/>Pipeline]
-        Generate[Email Generation<br/>Pipeline]
-        Send[Send Scheduling<br/>Pipeline]
-        Reply[Reply Processing<br/>Pipeline]
-    end
-
     UI --> API
     Auth --> AuthSvc
-    API --> DB
+    API --> TenantMW
+    TenantMW --> DB
     API --> Queue
-    DB --> Realtime
-    Realtime --> UI
 
     Research --> AI
     Research --> Data
@@ -75,16 +76,16 @@ graph TB
 sequenceDiagram
     participant F as Founder
     participant UI as Dashboard
-    participant API as API Layer
-    participant Q as Job Queue
+    participant API as Go API
+    participant Q as NATS JetStream
     participant AI as Claude AI
     participant D as Apollo/Data
-    participant E as Email (Resend)
+    participant E as Email (Resend/SES)
     participant G as Gmail
 
     F->>UI: Paste product URL + describe ICP
     UI->>API: Create campaign
-    API->>Q: Trigger prospect research
+    API->>Q: Publish to PROSPECTS stream
     Q->>AI: Analyze product → ICP profile
     Q->>D: Search prospects matching ICP
     D-->>Q: Raw prospect data
@@ -95,11 +96,11 @@ sequenceDiagram
 
     F->>UI: Approve 10 prospects (one click)
     UI->>API: Queue approved sends
-    API->>Q: Schedule sends
+    API->>Q: Publish to EMAILS stream
     Q->>E: Send email (throttled, timed)
     E-->>Q: Delivery confirmed
 
-    G-->>Q: Reply detected
+    G-->>Q: Reply detected (via REPLIES stream)
     Q->>AI: Classify reply intent
     AI-->>Q: "Interested" + draft response
     Q-->>API: Notify founder
@@ -111,9 +112,9 @@ sequenceDiagram
 
 ## Infrastructure Cost at Scale
 
-| Scale | Infra | AI Costs | Data Costs | Total COGS | Gross Margin |
+| Scale | Infra (AWS + services) | AI Costs | Data Costs | Total COGS | Gross Margin |
 |-------|-------|----------|------------|-----------|-------------|
-| Launch (10 customers) | $120/mo | $50/mo | $50/mo | ~$220/mo | ~50% |
-| 100 customers | $500/mo | $4,000/mo | $3,000/mo | ~$10,500/mo | **77%** |
-| 1,000 customers | $3,000/mo | $30,000/mo | $20,000/mo | ~$75,000/mo | **84%** |
-| 10,000 customers | $15,000/mo | $200,000/mo | $150,000/mo | ~$630,000/mo | **88%** |
+| Launch (10 customers) | $150/mo | $50/mo | $50/mo | ~$250/mo | ~45% |
+| 100 customers | $600/mo | $4,000/mo | $3,000/mo | ~$10,600/mo | **76%** |
+| 1,000 customers | $4,000/mo | $30,000/mo | $20,000/mo | ~$76,000/mo | **84%** |
+| 10,000 customers | $20,000/mo | $200,000/mo | $150,000/mo | ~$635,000/mo | **88%** |
